@@ -61,12 +61,27 @@
           sha256 = "06whihwk7cpyi3bxvvh3qqbd5560rknm88psrajvj7308slf0jfd";
         };
       }
+
+      {
+        name = "plugin-foreign-env";
+        src = pkgs.fetchFromGitHub {
+          owner = "oh-my-fish";
+          repo = "plugin-foreign-env";
+          rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
+          sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+        };
+      }
     ];
 
-	interactiveShellInit = builtins.readFile ./config.fish;
+    shellInit = ''
+      fenv source '~/.nix-profile/etc/profile.d/nix.sh'
+    '';
+
+    interactiveShellInit = builtins.readFile ./config.fish;
 
     shellAliases = {
-      vi = "vim";
+      vi = "~/.nix-profile/bin/vim";
+      vim = "~/.nix-profile/bin/vim";
 
       ga = "git add";
       gb = "git branch";
@@ -124,6 +139,6 @@
       dracula-vim
     ];
 
-	extraConfig = builtins.readFile ./vimrc;
+    extraConfig = builtins.readFile ./vimrc;
   };
 }

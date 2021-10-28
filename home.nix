@@ -27,6 +27,7 @@
 
     settings = {
       env.TERM = "xterm-256color";
+      env.PATH = builtins.replaceStrings ["\n"] [":"] (builtins.readFile /etc/paths);
       shell.program = "/Users/justin/.nix-profile/bin/fish";
 
       window.padding = {

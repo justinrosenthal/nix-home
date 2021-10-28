@@ -8,6 +8,7 @@
 
   home.packages = [
     pkgs.ack
+    pkgs.any-nix-shell
     pkgs.jq
     pkgs.tree
   ];
@@ -76,6 +77,7 @@
 
     shellInit = ''
       fenv source '~/.nix-profile/etc/profile.d/nix.sh'
+      any-nix-shell fish --info-right | source
     '';
 
     interactiveShellInit = builtins.readFile ./config.fish;

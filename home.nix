@@ -41,6 +41,7 @@
       key_bindings = [
         { key = "V"; mods = "Command"; action = "Paste"; }
         { key = "C"; mods = "Command"; action = "Copy"; }
+        { key = "N"; mods = "Command"; action = "CreateNewWindow"; }
         { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
         { key = "Plus"; mods = "Command"; action = "IncreaseFontSize"; }
         { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }

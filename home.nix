@@ -9,6 +9,7 @@
   home.packages = [
     pkgs.ack
     pkgs.any-nix-shell
+    pkgs.fzf
     pkgs.jq
     pkgs.tree
   ];
@@ -72,6 +73,16 @@
           repo = "plugin-foreign-env";
           rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
           sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+        };
+      }
+
+      {
+        name = "fish-fzf";
+        src = pkgs.fetchFromGitHub {
+          owner = "jethrokuan";
+          repo = "fzf";
+          rev = "24f4739fc1dffafcc0da3ccfbbd14d9c7d31827a";
+          sha256 = "0kz057nr07ybh0y06ww3p424rgk8pi84pnch9jzb040qqn9a8823";
         };
       }
     ];

@@ -90,8 +90,10 @@
     ];
 
     shellInit = ''
-      fenv source '~/.nix-profile/etc/profile.d/nix.sh'
-      any-nix-shell fish --info-right | source
+      if not type -q nix
+        fenv source '~/.nix-profile/etc/profile.d/nix.sh'
+        any-nix-shell fish | source
+      end
     '';
 
     interactiveShellInit = builtins.readFile ./config.fish;

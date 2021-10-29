@@ -10,6 +10,8 @@
     pkgs.ack
     pkgs.any-nix-shell
     pkgs.fzf
+    pkgs.go_1_17
+    pkgs.gopls
     pkgs.jq
     pkgs.tree
   ];
@@ -37,7 +39,7 @@
       };
 
       font = {
-        size = 11;
+        size = 13;
         normal.family = "Monaco for Powerline";
       };
 

@@ -155,6 +155,7 @@
     enable = true;
 
     plugins = with pkgs.vimPlugins; [
+      auto-pairs
       vim-go
       vim-terraform
       dracula-vim

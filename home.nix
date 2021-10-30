@@ -9,6 +9,7 @@
   home.packages = [
     pkgs.ack
     pkgs.any-nix-shell
+    pkgs.direnv
     pkgs.fzf
     pkgs.go_1_17
     pkgs.gopls
@@ -93,6 +94,7 @@
       if not type -q nix
         fenv source '~/.nix-profile/etc/profile.d/nix.sh'
         any-nix-shell fish | source
+        direnv hook fish | source
       end
     '';
 

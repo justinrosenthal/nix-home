@@ -138,6 +138,14 @@
       init.defaultBranch = "main";
     };
 
+    delta = {
+      enable = true;
+      options = {
+        line-numbers = true;
+        navigate = true;
+      };
+    };
+
     ignores = [
       ".DS_Store"
       "*~"

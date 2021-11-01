@@ -91,11 +91,16 @@
     ];
 
     shellInit = ''
+      # Setup the Nix environment (conditional because it's non-idempotent)
       if not type -q nix
         fenv source '~/.nix-profile/etc/profile.d/nix.sh'
-        any-nix-shell fish | source
-        direnv hook fish | source
       end
+
+      # Activate any-nix-shell so `nix-shell` loads fish instead of bash
+      any-nix-shell fish | source
+
+      # Activate direnv
+      direnv hook fish | source
     '';
 
     interactiveShellInit = builtins.readFile ./config.fish;

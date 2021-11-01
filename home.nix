@@ -6,15 +6,16 @@
   home.homeDirectory = "/Users/justin";
   home.stateVersion = "21.11";
 
-  home.packages = [
-    pkgs.ack
-    pkgs.any-nix-shell
-    pkgs.direnv
-    pkgs.fzf
-    pkgs.go_1_17
-    pkgs.gopls
-    pkgs.jq
-    pkgs.tree
+  home.packages = with pkgs; [
+    ack
+    any-nix-shell
+    direnv
+    fzf
+    go_1_17
+    gopls
+    jq
+    ripgrep
+    tree
   ];
 
   home.sessionVariables = {

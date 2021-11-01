@@ -158,10 +158,23 @@
 
     terminal = "xterm-256color";
     secureSocket = false;
+    keyMode = "vi";
+
+    plugins = with pkgs.tmuxPlugins; [
+      {
+        plugin = dracula;
+        extraConfig = ''
+          set -g @dracula-plugins "time"
+          set -g @dracula-show-powerline true
+          set -g @dracula-refresh-rate 1
+        '';
+      }
+    ];
 
     extraConfig = ''
       set -g default-terminal "xterm-256color"
       set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set -g mouse on
     '';
   };
 

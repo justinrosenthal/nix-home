@@ -185,6 +185,7 @@
     plugins = with pkgs.vimPlugins; [
       auto-pairs
       vim-go
+      vim-javascript
       vim-terraform
       dracula-vim
     ];

@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+let customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
+in
 {
   programs.home-manager.enable = true;
   home.username = "justin";
@@ -182,10 +184,11 @@
   programs.vim = {
     enable = true;
 
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; with customVimPlugins; [
       auto-pairs
       vim-go
       vim-javascript
+      vim-misc
       vim-terraform
       dracula-vim
     ];

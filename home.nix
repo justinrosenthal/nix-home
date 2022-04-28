@@ -15,6 +15,7 @@ in
     fzf
     go_1_17
     gopls
+    httpie
     jq
     ripgrep
     tree

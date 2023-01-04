@@ -42,6 +42,18 @@ function __bobthefish_prompt_nix -S -d 'Display current nix environment'
     set_color normal
 end
 
+# Show the current git user's name if it's different from the global config
+functions --copy __bobthefish_git_branch __bobthefish_git_branch_original
+function __bobthefish_git_branch
+    __bobthefish_git_branch_original
+
+    set -l git_user_name (command git config user.name)
+    set -l git_global_user_name (command git config --global user.name)
+    if [ $git_user_name != $git_global_user_name ]
+        echo -n " [$git_user_name]"
+    end
+end
+
 
 #-------------------------------------------------------------------------------
 # Functions

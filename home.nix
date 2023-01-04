@@ -18,6 +18,7 @@ in
     httpie
     jq
     ripgrep
+    stern
     tree
   ];
 

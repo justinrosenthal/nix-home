@@ -13,7 +13,7 @@ in
     any-nix-shell
     direnv
     fzf
-    go_1_18
+    go_1_19
     gopls
     httpie
     jq

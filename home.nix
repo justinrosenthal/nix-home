@@ -11,7 +11,6 @@ in
   home.packages = with pkgs; [
     ack
     any-nix-shell
-    direnv
     fzf
     go_1_19
     gopls
@@ -58,6 +57,11 @@ in
         { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
       ];
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   programs.fish = {

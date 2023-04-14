@@ -16,6 +16,7 @@ in
     gopls
     httpie
     jq
+    kubectx
     ripgrep
     stern
     tree

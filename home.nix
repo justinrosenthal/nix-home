@@ -13,7 +13,6 @@ in
     ack
     any-nix-shell
     pkgsUnstable.claude-code
-    fzf
     gh
     go
     gopls
@@ -39,39 +38,18 @@ in
     nix-direnv.enable = true;
   };
 
+  programs.fzf = {
+    enable = true;
+    defaultOptions = [ "--layout=reverse" "--height=35%" ];
+  };
+
   programs.fish = {
     enable = true;
 
-    plugins = [
-      {
-        name = "theme-bobthefish";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "theme-bobthefish";
-          rev = "626bd39b002535d69e56adba5b58a1060cfb6d7b";
-          sha256 = "06whihwk7cpyi3bxvvh3qqbd5560rknm88psrajvj7308slf0jfd";
-        };
-      }
-
-      {
-        name = "plugin-foreign-env";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "plugin-foreign-env";
-          rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
-          sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
-        };
-      }
-
-      {
-        name = "fish-fzf";
-        src = pkgs.fetchFromGitHub {
-          owner = "jethrokuan";
-          repo = "fzf";
-          rev = "24f4739fc1dffafcc0da3ccfbbd14d9c7d31827a";
-          sha256 = "0kz057nr07ybh0y06ww3p424rgk8pi84pnch9jzb040qqn9a8823";
-        };
-      }
+    plugins = with pkgs.fishPlugins; [
+      { name = "bobthefish"; src = bobthefish.src; }
+      { name = "foreign-env"; src = foreign-env.src; }
+      { name = "fzf"; src = fzf.src; }
     ];
 
     shellInit = ''
@@ -91,9 +69,6 @@ in
     interactiveShellInit = builtins.readFile ./config.fish;
 
     shellAliases = {
-      vi = "~/.nix-profile/bin/vim";
-      vim = "~/.nix-profile/bin/vim";
-
       ga = "git add";
       gb = "git branch";
       gc = "git commit";
@@ -116,7 +91,7 @@ in
 
       branch.autosetuprebase = "always";
       color.ui = true;
-      push.default = "tracking";
+      push.default = "upstream";
       init.defaultBranch = "main";
     };
 

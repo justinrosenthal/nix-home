@@ -114,7 +114,7 @@ in
   programs.tmux = {
     enable = true;
 
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
     secureSocket = false;
     keyMode = "vi";
 
@@ -131,8 +131,7 @@ in
 
     extraConfig = ''
       set -g default-command fish
-      set -g default-terminal "xterm-256color"
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set-option -ga terminal-overrides ",*:Tc"
       set -g mouse on
     '';
   };

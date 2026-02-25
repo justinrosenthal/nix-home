@@ -1,10 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgsUnstable, ... }:
 
 let
   customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
-  pkgsUnstable = import <unstable> {
-    config.allowUnfree = true;
-  };
 in
 {
   programs.home-manager.enable = true;
@@ -111,26 +108,16 @@ in
   programs.git = {
     enable = true;
 
-    userName = "Justin Rosenthal";
-    userEmail = "justin.rosenthal@gmail.com";
+    settings = {
+      user.name = "Justin Rosenthal";
+      user.email = "justin.rosenthal@gmail.com";
 
-    aliases = {
-      prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-    };
+      alias.prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
 
-    extraConfig = {
       branch.autosetuprebase = "always";
       color.ui = true;
       push.default = "tracking";
       init.defaultBranch = "main";
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        line-numbers = true;
-        navigate = true;
-      };
     };
 
     ignores = [
@@ -138,6 +125,15 @@ in
       "*~"
       "*.swp"
     ];
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+      navigate = true;
+    };
   };
 
   programs.tmux = {

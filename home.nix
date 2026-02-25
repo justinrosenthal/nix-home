@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable, ... }:
+{ config, pkgs, claude-code, codex, ... }:
 
 let
   customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
@@ -12,7 +12,8 @@ in
   home.packages = with pkgs; [
     ack
     any-nix-shell
-    pkgsUnstable.claude-code
+    claude-code
+    codex
     gh
     go
     gopls
@@ -133,6 +134,9 @@ in
       set -g default-command fish
       set-option -ga terminal-overrides ",*:Tc"
       set -g mouse on
+
+      # Strip Nix's .foo-wrapped naming from automatic window titles
+      set-option -g automatic-rename-format '#{s/^\.//:#{s/-wrapped$//:pane_current_command}}'
     '';
   };
 

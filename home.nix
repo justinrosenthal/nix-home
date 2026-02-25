@@ -1,18 +1,24 @@
 { config, pkgs, ... }:
 
-let customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
+let
+  customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
+  pkgsUnstable = import <unstable> {
+    config.allowUnfree = true;
+  };
 in
 {
   programs.home-manager.enable = true;
   home.username = "justin";
   home.homeDirectory = "/Users/justin";
-  home.stateVersion = "21.11";
+  home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
     ack
     any-nix-shell
+    pkgsUnstable.claude-code
     fzf
-    go_1_19
+    gh
+    go
     gopls
     httpie
     jq
@@ -29,35 +35,6 @@ in
     EDITOR = "vim";
     PAGER = "less -FirSwX";
     MANPAGER = "less -FirSwX";
-  };
-
-  programs.alacritty = {
-    enable = true;
-
-    settings = {
-      env.TERM = "xterm-256color";
-      env.PATH = builtins.replaceStrings ["\n"] [":"] (builtins.readFile /etc/paths);
-      shell.program = "/Users/justin/.nix-profile/bin/fish";
-
-      window.padding = {
-        x = 5;
-        y = 5;
-      };
-
-      font = {
-        size = 13;
-        normal.family = "Monaco for Powerline";
-      };
-
-      key_bindings = [
-        { key = "V"; mods = "Command"; action = "Paste"; }
-        { key = "C"; mods = "Command"; action = "Copy"; }
-        { key = "N"; mods = "Command"; action = "CreateNewWindow"; }
-        { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
-        { key = "Plus"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
-      ];
-    };
   };
 
   programs.direnv = {
@@ -103,7 +80,8 @@ in
     shellInit = ''
       # Setup the Nix environment (conditional because it's non-idempotent)
       if not type -q nix
-        fenv source '~/.nix-profile/etc/profile.d/nix.sh'
+        fenv source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fenv source '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
       end
 
       # Activate any-nix-shell so `nix-shell` loads fish instead of bash

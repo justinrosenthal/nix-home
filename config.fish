@@ -15,6 +15,15 @@ end
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt "\$ "
 
+# Override bobthefish's fish_title: show cwd at prompt, process name otherwise
+function fish_title
+    if test (status current-command) = fish
+        prompt_pwd
+    else
+        status current-command
+    end
+end
+
 # Add a newline before every prompt to space things out
 functions --copy fish_prompt fish_prompt_original
 function fish_prompt; echo; fish_prompt_original; end

@@ -48,7 +48,7 @@ in
     enable = true;
 
     plugins = with pkgs.fishPlugins; [
-      { name = "bobthefish"; src = bobthefish.src; }
+      { name = "tide"; src = tide.src; }
       { name = "foreign-env"; src = foreign-env.src; }
       { name = "fzf"; src = fzf.src; }
     ];

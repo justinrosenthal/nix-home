@@ -11,11 +11,7 @@ end
 # Prompt
 #-------------------------------------------------------------------------------
 
-# Display the powerline on its own line
-set -g theme_newline_cursor yes
-set -g theme_newline_prompt "\$ "
-
-# Override bobthefish's fish_title: show cwd at prompt, process name otherwise
+# Tide: show cwd at prompt, process name otherwise (for Ghostty tab titles)
 function fish_title
     if test (status current-command) = fish
         prompt_pwd
@@ -27,45 +23,6 @@ end
 # Add a newline before every prompt to space things out
 functions --copy fish_prompt fish_prompt_original
 function fish_prompt; echo; fish_prompt_original; end
-
-# Enable k8s context segment
-set -g theme_display_k8s_context yes
-
-# bobthefish theme
-function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
-    # Inherit from the dracula theme
-    __bobthefish_colors dracula
-
-    # These were copied from __bobthefish_colors.fish
-    set -l bg       282a36
-    set -l green    50fa7b
-
-    # Better legibility for the k8s context segment
-    set -x color_k8s $green $bg --bold
-end
-
-# Override the nix prompt for the theme so that we show a more concise prompt
-function __bobthefish_prompt_nix -S -d 'Display current nix environment'
-    [ "$theme_display_nix" = 'no' -o -z "$IN_NIX_SHELL" ]
-    and return
-
-    __bobthefish_start_segment $color_nix
-    echo -ns N ' '
-
-    set_color normal
-end
-
-# Show the current git user's name if it's different from the global config
-functions --copy __bobthefish_git_branch __bobthefish_git_branch_original
-function __bobthefish_git_branch
-    __bobthefish_git_branch_original
-
-    set -l git_user_name (command git config user.name)
-    set -l git_global_user_name (command git config --global user.name)
-    if [ $git_user_name != $git_global_user_name ]
-        echo -n " [$git_user_name]"
-    end
-end
 
 
 #-------------------------------------------------------------------------------

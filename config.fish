@@ -20,10 +20,6 @@ function fish_title
     end
 end
 
-# Add a newline before every prompt to space things out
-functions --copy fish_prompt fish_prompt_original
-function fish_prompt; echo; fish_prompt_original; end
-
 
 #-------------------------------------------------------------------------------
 # Functions

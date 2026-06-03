@@ -1,4 +1,4 @@
-{ config, pkgs, claude-code, codex, ... }:
+{ config, lib, pkgs, claude-code, codex, ... }:
 
 let
   customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
@@ -33,6 +33,22 @@ in
     PAGER = "less -FirSwX";
     MANPAGER = "less -FirSwX";
   };
+
+  # Apply the tide prompt config. Tide stores its settings as fish *universal*
+  # variables, and its async prompt renders in a background `fish -c`
+  # subprocess that only sees universal vars (globals/exports don't survive the
+  # process boundary, and exports mangle list vars). home-manager symlinks the
+  # tide plugin but never fires its `_tide_init_install` event, so we set the
+  # universals ourselves on each rebuild from the committed config. tide's
+  # autoloaded fish_prompt then computes the per-host item lists at first prompt.
+  #
+  # Regenerate tide-config.fish after running `tide configure`, with:
+  #   for v in (set -nU | string match 'tide_*')
+  #       echo set -U $v (string escape -- $$v)
+  #   end > tide-config.fish
+  home.activation.tideConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${pkgs.fish}/bin/fish -c 'source ${./tide-config.fish}'
+  '';
 
   programs.direnv = {
     enable = true;

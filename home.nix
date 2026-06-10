@@ -1,4 +1,4 @@
-{ config, lib, pkgs, claude-code, codex, ... }:
+{ config, lib, pkgs, claude-code, ... }:
 
 let
   customVimPlugins = import ./vim-plugins.nix { inherit pkgs; };
@@ -13,7 +13,6 @@ in
     ack
     any-nix-shell
     claude-code
-    codex
     gh
     go
     gopls

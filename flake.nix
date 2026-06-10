@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Updated daily. To pull the latest versions:
-    #   nix flake update llm-agents --flake ~/.config/home-manager/nix-home
+    #   nix flake update llm-agents --flake <path/to/this/repo>
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
@@ -23,7 +23,6 @@
         inherit pkgs;
         extraSpecialArgs = {
           claude-code = agentPkgs.claude-code;
-          codex = agentPkgs.codex;
         };
         modules = [ ./home.nix ];
       };

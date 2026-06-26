@@ -54,6 +54,11 @@ in
     nix-direnv.enable = true;
   };
 
+  programs.mise = {
+    enable = true;
+    # enableFishIntegration defaults to true, wiring up `mise activate fish`.
+  };
+
   programs.fzf = {
     enable = true;
     defaultOptions = [ "--layout=reverse" "--height=35%" ];

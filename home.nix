@@ -45,8 +45,11 @@ in
   #   for v in (set -nU | string match 'tide_*')
   #       echo set -U $v (string escape -- $$v)
   #   end > tide-config.fish
+  # --no-config so this activation-time fish doesn't source config.fish (whose
+  # interactive shellInit calls any-nix-shell/direnv, which aren't on PATH
+  # during activation). We only need it to set tide's universal variables.
   home.activation.tideConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run ${pkgs.fish}/bin/fish -c 'source ${./tide-config.fish}'
+    run ${pkgs.fish}/bin/fish --no-config -c 'source ${./tide-config.fish}'
   '';
 
   programs.direnv = {

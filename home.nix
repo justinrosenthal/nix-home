@@ -76,6 +76,22 @@ in
       { name = "fzf"; src = fzf.src; }
     ];
 
+    functions = {
+      # tide's node item runs `node --version` whenever a package.json is in
+      # scope, without checking that node exists (upstream only guards the
+      # python and pulumi items). With node coming from mise per-project, an
+      # unconfigured repo leaks "Unknown command: node" from the async prompt.
+      # This copy shadows the plugin's: our functions dir precedes plugin dirs
+      # on fish_function_path.
+      _tide_item_node = ''
+        command -q node; or return
+        if path is $_tide_parent_dirs/package.json
+            node --version | string match -qr "v(?<v>.*)"
+            _tide_print_item node $tide_node_icon' ' $v
+        end
+      '';
+    };
+
     shellInit = ''
       # Setup the Nix environment (conditional because it's non-idempotent)
       if not type -q nix
